@@ -35,3 +35,11 @@ public:
         : GameException("Invalid user type!") {
     }
 };
+
+class InvalidFileFormatException : public GameException {
+public:
+	InvalidFileFormatException()
+		: GameException("Invalid file format!") {
+
+	}
+};
