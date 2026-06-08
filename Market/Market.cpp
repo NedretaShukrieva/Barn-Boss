@@ -109,52 +109,30 @@ void Market::changePrice(unsigned int id, unsigned int newPrice)
 
 std::ostream& operator<<(std::ostream& os, const Market& market)
 {
-    os << "MARKET\n";
+    os << "MARKET " << market.catalog.size() << "\n";
 
-    for (const auto& item : market.catalog)
-    {
+    for (const auto& item : market.catalog) {
         os << item << "\n";
     }
 
-    os << "END\n";
     return os;
 }
 
 std::istream& operator>>(std::istream& is, Market& market)
 {
+    std::string section;
+    unsigned int count;
+    is >> section >> count;
 
-    std::string token;
-    is >> token;
-
-    if (token != "MARKET") {
+    if (section != "MARKET")
         throw InvalidFileFormatException();
-    }
 
     market.catalog.clear();
 
-    while (true)
-    {
-        std::string product;
-        is >> product;
-
-        if (!is) return is;
-
-        if (product == "END")
-            break;
-
-        unsigned int quantity, price;
-        is >> quantity >> price;
-
-        if (!is) return is;
-
-        MarketItem item(
-            Utils::stringToProductType(product),
-            quantity,
-            price
-        );
-
-        market.catalog.push_back(item);
+    for (unsigned int i = 0; i < count && is; i++) {
+        MarketItem item;
+        if (is >> item)
+            market.catalog.push_back(item);
     }
-
     return is;
 }
