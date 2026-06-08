@@ -1,6 +1,7 @@
 #include "Barn.h"
 #include <print>
 #include <fstream>
+#include "GameException.h"
 
 
 void Barn::addProduct(ProductType type, unsigned int quantity)
@@ -55,6 +56,9 @@ std::istream& operator>>(std::istream& is, Barn& barn)
 {
     std::string token;
     is >> token; 
+
+    if (token != "BARN")
+        throw InvalidFileFormatException();
 
     std::string typeStr;
     while (is >> typeStr && typeStr != "END") {
