@@ -71,32 +71,41 @@ A console-based farm management simulation game built with object-oriented C++. 
 | 8 | Milk | 60 |
 
 ## Project Structure
+
+```bash
 BarnBoss/
 ├── User/
-│   ├── User.h/cpp
-|   ├── UserValidator.h/cpp
-|   ├── UserFactory.h/cpp
-│   ├── Player.h/cpp
-│   ├── TaskManager.h/cpp
-│   └── MarketManager.h/cpp
+│   ├── User.h / User.cpp
+│   ├── UserValidator.h / UserValidator.cpp
+│   ├── UserFactory.h / UserFactory.cpp
+│   ├── Player.h / Player.cpp
+│   ├── TaskManager.h / TaskManager.cpp
+│   └── MarketManager.h / MarketManager.cpp
+│
 ├── Farm/
-│   ├── Farm.h/cpp
-│   ├── FarmObject.h/cpp
-│   ├── Plantable.h/cpp
-│   └── Animal.h/cpp
+│   ├── Farm.h / Farm.cpp
+│   ├── FarmObject.h / FarmObject.cpp
+│   ├── Plantable.h / Plantable.cpp
+│   └── Animal.h / Animal.cpp
+│
 ├── Market/
-│   ├── Market.h/cpp
-│   └── MarketItem.h/cpp
+│   ├── Market.h / Market.cpp
+│   └── MarketItem.h / MarketItem.cpp
+│
 ├── Taskboard/
-│   ├── Taskboard.h/cpp
-│   └── Task.h/cpp
+│   ├── Taskboard.h / Taskboard.cpp
+│   └── Task.h / Task.cpp
+│
 ├── System/
-│   ├── System.h/cpp
-├── GameSerializer
-│   └── GameSerializer.h/cpp
+│   ├── System.h / System.cpp
+│
+├── GameSerializer/
+│   ├── GameSerializer.h / GameSerializer.cpp
+│
 ├── Utils/
 │   ├── Utils.h
 │   └── Utils.cpp
+│
 ├── GameException/
 │   └── GameException.h
 
