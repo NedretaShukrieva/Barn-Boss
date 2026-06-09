@@ -22,6 +22,10 @@ void System::registerUser(const std::string& username, const std::string& passwo
             throw GameException("Market Manager already exists!");
 
         users.push_back(std::move(UserFactory::createUser(username, password, type, market, taskboard)));
+
+        if (type == "MarketManager") hasMarketManager = true;
+        if (type == "TaskManager") hasTaskManager = true;
+
         std::println("Registration successful!");
     }
     catch (const GameException& e) {
@@ -43,7 +47,7 @@ void System::login(const std::string& username, const std::string& password)
     }
 
     currentUser = it->get();
-    std::println ("You entered as: {} ", username);
+    std::println ("Welcome {} ", username);
 }
 
 void System::handlePlayerCommand(const std::string& command, Player* player)
@@ -84,7 +88,6 @@ void System::handlePlayerCommand(const std::string& command, Player* player)
     }
     else if (command == "harvest") {
         player->harvest();
-        player->advanceCycle();
     }
     else if (command == "openMarketCatalog") {
         player->openMarketCatalog();
