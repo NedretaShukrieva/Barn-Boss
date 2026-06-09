@@ -3,6 +3,8 @@
 #include "UserValidator.h"
 #include <iostream>
 
+class System;
+
 class User
 {
 private:
@@ -29,6 +31,7 @@ public:
 	const std::string& getPassword()const;
 	unsigned int getId() const;
 
+	void logout(System& system);
 	bool changePassword(const std::string& oldPassword, const std::string& newPassword);
 
 	virtual void profileInfo()const = 0;

@@ -37,6 +37,11 @@ unsigned int User::getId() const
     return id;
 }
 
+void User::logout(System& system)
+{
+    system.setCurrentUser(nullptr);
+    std::println("Logout is successful.");
+}
 
 bool User::changePassword(const std::string& oldPassword, const std::string& newPassword)
 {
