@@ -149,7 +149,7 @@ void System::handleTaskManagerCommand(const std::string& command, TaskManager* t
         taskManager->addTask(product, quantity, rewardBalance, rewardScore);
     }
 
-    else if (command == "remove task") {
+    else if (command == "removeTask") {
 
         unsigned int id;
         std::println("Enter task id: ");

@@ -29,6 +29,8 @@ unsigned int Barn::getQuantity(ProductType type) const
 
 void Barn::display() const
 {
+    std::println("=== Barn ===");
+
     for (int i = 1; i < COUNT; i++) {
         ProductType type = static_cast<ProductType>(i);
         std::println("{}: {}", Utils::productTypeToString(type), inventory[i]);
