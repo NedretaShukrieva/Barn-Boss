@@ -33,6 +33,7 @@ public:
 	unsigned int getFarmlandCapacity()const;
 
 	void setCroplandCapacity(unsigned int newCap);
+	void setFarmlandCapacity(unsigned int newCap);
 
 	void harvest(Barn& barn);
 	void growAll();

@@ -76,6 +76,11 @@ void Farm::setCroplandCapacity(unsigned int newCap)
 	croplandCapacity = newCap;
 }
 
+void Farm::setFarmlandCapacity(unsigned int newCap)
+{
+	farmlandCapacity = newCap;
+}
+
 
 void Farm::harvest(Barn& barn)
 {
@@ -160,7 +165,11 @@ std::istream& operator>>(std::istream& is, Farm& farm)
 	for (unsigned int i = 0; i < cropCount; i++) {
 		std::string productName;
 		unsigned int cycle;
-		is >> productName >> cycle;
+		
+
+		if (!(is >> productName >> cycle)) {
+			throw InvalidFileFormatException();
+		}
 
 		ProductType type = Utils::stringToProductType(productName);
 
@@ -191,7 +200,11 @@ std::istream& operator>>(std::istream& is, Farm& farm)
 
 		std::string productName;
 		unsigned int cycle;
-		is >> productName >> cycle;
+
+
+		if (!(is >> productName >> cycle)) {
+			throw InvalidFileFormatException();
+		}
 
 		ProductType type = Utils::stringToProductType(productName);
 
@@ -217,3 +230,5 @@ std::istream& operator>>(std::istream& is, Farm& farm)
 		
 	return is;
 }
+
+
