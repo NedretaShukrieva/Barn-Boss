@@ -19,7 +19,7 @@ void Market::showCatalog() const
 {
     
     for (const auto& item : catalog) {
-        std::println("id:{} product:{} qty:{} price:{}",
+        std::println("Id: {}, product: {}, qty: {}, price: {}",
             item.getId(),
             Utils::productTypeToString(item.getProduct()),
             item.getQuantity(),
@@ -93,18 +93,26 @@ void Market::restock(unsigned int id, unsigned int quantity)
 {
     MarketItem* item = findItem(id);
 
-    if (!item) return;
+    if (!item) {
+        throw InvalidProductException();
+    }
 
     item->setQuantity(item->getQuantity() + quantity);
+
+    std::println("Successful restock!");
 }
 
 void Market::changePrice(unsigned int id, unsigned int newPrice)
 {
     MarketItem* item = findItem(id);
 
-    if (!item) return;
+    if (!item) {
+        throw InvalidProductException();
+    }
 
     item->setPrice(newPrice);
+
+    std::println("Successful change of price!");
 }
 
 std::ostream& operator<<(std::ostream& os, const Market& market)
@@ -129,10 +137,14 @@ std::istream& operator>>(std::istream& is, Market& market)
 
     market.catalog.clear();
 
-    for (unsigned int i = 0; i < count && is; i++) {
+    for (unsigned int i = 0; i < count; i++) {
+
         MarketItem item;
-        if (is >> item)
-            market.catalog.push_back(item);
+
+        if (!(is >> item)) {
+            throw InvalidFileFormatException();
+        }
+        market.catalog.push_back(item);
     }
     return is;
 }
