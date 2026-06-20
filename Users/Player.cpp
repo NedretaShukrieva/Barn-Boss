@@ -62,7 +62,7 @@ bool Player::expandLand(unsigned int currentCap, std::function<void(unsigned int
 {
     unsigned int totalPrice = PRICE * currentCap;
 
-    if (score < CONDITION * currentCap) {
+    if (score < CONDITION_EXPANSION * currentCap) {
         std::println("Not enough points!");
         return false;
     }
@@ -86,11 +86,12 @@ bool Player::expandCropland()
 bool Player::expandFarmland()
 {
     return expandLand(farm.getFarmlandCapacity(),
-        [this](unsigned int cap) {farm.setCroplandCapacity(cap); });
+        [this](unsigned int cap) {farm.setFarmlandCapacity(cap); });
 
 }
 
 bool Player::sowPlant(unsigned int seedId) {
+
     ProductType seedType;
     std::unique_ptr<Plantable> plant;
 
@@ -231,6 +232,7 @@ std::ostream& Player::serialize(std::ostream& os) const
     os << balance << " " << score << " " << currentCycle << "\n";
     os << barn;
     os << farm;
+
     return os;
 }
 
@@ -241,3 +243,5 @@ std::istream& Player::deserialize(std::istream& is)
     is >> farm;  
     return is;
 }
+
+
