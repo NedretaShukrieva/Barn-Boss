@@ -47,7 +47,7 @@ void System::login(const std::string& username, const std::string& password)
     }
 
     currentUser = it->get();
-    std::println ("Welcome {} ", username);
+    std::println ("Welcome, {}!", username);
 }
 
 void System::handlePlayerCommand(const std::string& command, Player* player)
@@ -94,16 +94,28 @@ void System::handlePlayerCommand(const std::string& command, Player* player)
     }
     else if (command == "buyItem") {
         
-        unsigned int id, quantity;
+        unsigned int id; 
+        int quantity;
         std::cin >> id >> quantity;
+
+        if (quantity < 0) {
+            std::println("Invalid quantity!");
+            return;
+        }
 
         if (player->buyItem(id, quantity))
             player->advanceCycle();
     }
     else if (command == "sellItem") {
         
-        unsigned int id, quantity;
+        unsigned int id;
+        int quantity;
         std::cin >> id >> quantity;
+
+        if (quantity < 0) {
+            std::println("Invalid quantity!");
+            return;
+        }
 
         if (player->sellItem(id, quantity))
             player->advanceCycle();
@@ -137,16 +149,14 @@ void System::handleTaskManagerCommand(const std::string& command, TaskManager* t
         std::string product;
         unsigned int quantity, rewardBalance, rewardScore;
 
-        std::println("Enter product: ");
-        std::cin >> product;
-        std::println("Enter quantity: ");
-        std::cin >> quantity;
-        std::println("Enter reward balance: ");
-        std::cin >> rewardBalance;
-        std::println("Enter reward score: ");
-        std::cin >> rewardScore;
+        std::cin >> product >> quantity >> rewardBalance >> rewardScore;
 
-        taskManager->addTask(product, quantity, rewardBalance, rewardScore);
+        try {
+            taskManager->addTask(product, quantity, rewardBalance, rewardScore);
+        }
+        catch (const InvalidProductException&) {
+            std::println("Invalid product: '{}'", product);
+        }
     }
 
     else if (command == "removeTask") {
@@ -175,16 +185,28 @@ void System::handleMarketManagerCommand(const std::string& command, MarketManage
 
     else if (command == "restock") {
        
-        unsigned int id, quantity;
+        unsigned int id;
+        int quantity;
         std::cin >> id >> quantity;
+
+        if (quantity < 0) {
+            std::println("Invalid quantity!");
+            return;
+        }
 
         marketManager->restock(id, quantity);
     }
 
     else if (command == "changePrice") {
      
-        unsigned int id, newPrice;
+        unsigned int id;
+        int newPrice;
         std::cin >> id >> newPrice;
+
+        if (newPrice < 0) {
+            std::println("Invalid price!");
+            return;
+        }
 
         marketManager->changePrice(id, newPrice);
     }
