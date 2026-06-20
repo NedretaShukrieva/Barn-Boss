@@ -19,6 +19,8 @@ void Taskboard::addTask(const std::string& product, unsigned int quantity, unsig
 {
 	Task newTask = Task(quantity, Utils::stringToProductType(product), rewardBalance, rewardScore);
 	tasks.push_back(newTask);
+
+    std::println("Task successfully added!");
 }
 
 void Taskboard::removeTask(unsigned int taskId)
@@ -26,6 +28,8 @@ void Taskboard::removeTask(unsigned int taskId)
 	std::erase_if(tasks, [taskId](const Task& t) {
 		return t.getId() == taskId;
 		});
+
+    std::println("Task successfully removed!");
 }
 
 Task* Taskboard::findTask(unsigned int taskId)
@@ -56,10 +60,14 @@ std::istream& operator>>(std::istream& is, Taskboard& taskboard) {
 
     taskboard.tasks.clear();
 
-    for (unsigned int i = 0; i < taskCount && is; i++) {
+    for (unsigned int i = 0; i < taskCount; i++) {
         Task task;
-        if (is >> task)
-            taskboard.tasks.push_back(task);
+
+        if (!(is >> task)) {
+            throw InvalidFileFormatException();
+        }
+
+        taskboard.tasks.push_back(task);
     }
     return is;
 }
